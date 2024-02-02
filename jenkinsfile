@@ -1,59 +1,37 @@
-[Friday 21:19] zubi hcubesys
 pipeline {
     agent any
 
-
-    environment {
-        NODEJS_HOME = tool 'NodeJS_Installation_Name1'
-        PATH = "$NODEJS_HOME/bin:$PATH"
-    }
-
-
     stages {
-        stage('Checkout') {
-            steps {
-                // Manually perform Git checkout
-                git branch: 'main', credentialsId: '470f38ee-8b92-4194-8b56-1d64519fe638', url: 'https://github.com/zubiks10/jenkinsApps.git'
-            }
-        }
-
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
-
         stage('Build') {
             steps {
-                sh 'npm run build'
+                echo 'Building...'
+                // Add your build commands here
             }
         }
-
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                echo 'Testing...'
+                // Add your test commands here
             }
         }
-
 
         stage('Deploy') {
             steps {
-                sh 'npm deploy'
+                echo 'Deploying...'
+                // Add your deployment commands here
             }
         }
     }
 
-
     post {
         success {
-            echo 'Pipeline succeeded. Deploying...'
+            echo 'Pipeline succeeded!'
         }
+
         failure {
-            echo 'Pipeline failed. Notify the team...'
+            echo 'Pipeline failed. Please check the logs.'
         }
     }
-
 }
+
